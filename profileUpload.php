@@ -44,9 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $fileDestination = 'assets/UserPics/' . $newFileName;
             $_SESSION["fileDestination"] = $fileDestination;
             move_uploaded_file($fileTmpName, $fileDestination);
-            // echo $email;
             echo $_SESSION["fileDestination"];
             echo $_SESSION["useremail"];
+            $email = $_SESSION["useremail"];
 
             if ($email) {
                 // $email = $_SESSION["useremail"];
@@ -60,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 echo json_encode($success = "You have succeed in registering now use your credentials to login");
             } else {
                 $makosa["uploadfailed"] = "why are you passing around";
-                // echo "Hi shnayder";
             }
         }
 

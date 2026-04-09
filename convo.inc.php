@@ -1,8 +1,30 @@
 <?php
 
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+
+set_exception_handler(function($e) {
+    error_log("CONVO HANDLER Exception: " . $e->getMessage() . " in " . $e->getFile() . " line " . $e->getLine());
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage(), 'line' => $e->getLine()]);
+});
+
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    error_log("CONVO HANDLER Error [$errno]: $errstr in $errfile line $errline");
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
+
 require_once "dbconnection.inc.php";
 require_once "sessionconfig.inc.php";
 require_once "convo_model.inc.php";
+
+error_log("SESSION DATA: " . print_r($_SESSION, true));
+
+if (!isset($_SESSION["userid"])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Session missing userid']);
+    exit();
+}
 
 $currentLogedInUserId = $_SESSION["userid"];
 

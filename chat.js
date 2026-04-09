@@ -37,15 +37,16 @@ document.addEventListener("click", function (event) {
 
     receiverData = [receiverId, senderId, convorId];
 
-    // console.log(receiverData)
+    console.log(receiverData)
 
     if (chatMessages[convorId]) {
       chatMessages[convorId].forEach(function (oneMessageContainer) {
         messagespace.appendChild(oneMessageContainer);
-        // console.log('messeges')
+        console.log('messeges')
       });
     } else {
       addExistingMessage(convorId);
+      console.log("what's wrong here");
     }
 
     // console.log(`receiverData: ${receiverData}`)
@@ -58,6 +59,7 @@ textInput.addEventListener("keyup", function (event) {
     sendMessage();
   }
 });
+
 function sendMessage() {
   let sentMessage = textInput.value.trim();
   let receiverId = receiverData[0];
@@ -219,40 +221,32 @@ function displayExistingMessages(data, senderId) {
     const actualincomingmultmedia = document.createElement("img");
     actualincomingmultmedia.classList.add("actualincomingmultmedia");
 
-    // console.log(message);
+    console.log(message);
+    console.log(senderId);
 
-    if (message.sender_id === senderId && message.multimedia_status == 0) {
+    if (message.sender_id == senderId && message.multimedia_status == 0) {
       actualoutgoingmessage.textContent = message.message;
 
       outgoingContainer.appendChild(actualoutgoingmessage);
       outgoingMain.appendChild(outgoingContainer);
 
       allMessageContainers.push(outgoingMain);
-      // console.log(`outgoing: ${message.multimedia_status}`)
-    } else if (
-      message.sender_id != senderId &&
-      message.multimedia_status == 0
-    ) {
+      console.log(`outgoing: ${message.multimedia_status}`)
+    } else if (message.sender_id != senderId && message.multimedia_status == 0) {
       actualincomingmessage.textContent = message.message;
 
       incomingContainer.appendChild(actualincomingmessage);
       incomingMain.appendChild(incomingContainer);
 
       allMessageContainers.push(incomingMain);
-    } else if (
-      message.sender_id === senderId &&
-      message.multimedia_status == 1
-    ) {
+    } else if (message.sender_id == senderId && message.multimedia_status == 1) {
       actualoutgoingmultmedia.src = message.message;
 
       outgoingmultimediacontainer.appendChild(actualoutgoingmultmedia);
       outgoingmultmedia.appendChild(outgoingmultimediacontainer);
 
       allMessageContainers.push(outgoingmultmedia);
-    } else if (
-      message.sender_id != senderId &&
-      message.multimedia_status == 1
-    ) {
+    } else if (message.sender_id != senderId && message.multimedia_status == 1) {
       actualincomingmultmedia.src = message.message;
 
       incomingmultimediacontainer.appendChild(actualincomingmultmedia);
@@ -262,7 +256,7 @@ function displayExistingMessages(data, senderId) {
     }
   });
 
-  // console.log(allMessageContainers);
+  console.log(allMessageContainers);
 
   return allMessageContainers;
 }

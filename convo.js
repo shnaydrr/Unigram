@@ -146,7 +146,7 @@ function onpageloaddisplayconvo() {
                     const allUserFriendsData = data.allUserFriendsData;
                     const currentLoggedUserConvoIds = data.currentLoggedUserConvoIds;
                     const currentLogedInUserId = data.currentLogedInUserId;
-                    // console.log(`Convo data added after reload: ${data}`);
+                    console.log(`Convo data added after reload: `, data);
                     newchat.style.left = "-100%";
                     tempo.style.display = "none";
                     chatslist.style.display = "block";
@@ -156,7 +156,7 @@ function onpageloaddisplayconvo() {
                         chatslist.appendChild(convocontainer);
                     })
 
-                    // console.log('after reload convo displayed successfully')
+                    console.log('after reload convo displayed successfully')
                 })
             } else {
                 console.log('friends displaying failed')
@@ -183,7 +183,7 @@ function displayconvoonload(allUserFriendsData, currentLoggedUserConvoIds, curre
                 onechat.setAttribute('data-receiver-id', oneUserFriendData["user_id"]);
 
                 onechat.setAttribute('data-convor-id', oneConvoId['convor_id']);
-                // console.log(`This convo id: ${oneConvoId["convor_id"]} is for user ${oneUserFriendData["user_id"]}`);
+                console.log(`This convo id: ${oneConvoId["convor_id"]} is for user ${oneUserFriendData["user_id"]}`);
 
                 onechat.setAttribute('data-profilepic-id', oneUserFriendData["profile_pic_id"]);
                 onechat.setAttribute('data-receiver-username', oneUserFriendData["username"]);
@@ -225,7 +225,7 @@ function displayconvoonload(allUserFriendsData, currentLoggedUserConvoIds, curre
 
 function doesConvorIdMatchFriendsIdFromDb(convorId, friendsId, loggedUserId) {
 
-    const trimmedConvorId = convorId.replace(new RegExp(`^${loggedUserId}|${loggedUserId}$`, 'g'), '');
+    const trimmedConvorId = String(convorId).replace(new RegExp(`^${loggedUserId}|${loggedUserId}$`, 'g'), '');
 
     friendsIdstring = friendsId.toString();
 
